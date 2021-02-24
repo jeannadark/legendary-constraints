@@ -18,12 +18,11 @@ def get_most_constrained_vertex(graph) -> int:
             unassigned.append(vertex)
 
     mrv_heuristic = lambda vertex: len(
-        graph.get_neighbors(vertex)
+        graph.possible_colors[vertex]
     )
-    next_vertex = max(unassigned, key=mrv_heuristic)
+    next_vertex = min(unassigned, key=mrv_heuristic)
 
     return next_vertex
-
 
 def get_least_constraining_values(graph, vertex: int) -> list:
     """Get the least constraining color value to assign next to a given vertex.

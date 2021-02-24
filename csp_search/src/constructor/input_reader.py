@@ -21,6 +21,7 @@ def parse_edges(data: str, string_to_split_on: str = "# Graph:",) -> list:
     # split the data on newline character
     list_of_edges = list_of_edges.split("\n")
     # remove empty strings that arose due to whitespace by using filter
+    list_of_edges = list(filter(lambda x: x != " ", list_of_edges))
     list_of_edges = list(filter(lambda x: x != "", list_of_edges))
 
     # create a list of lists of type [from, to] by splitting on the comma character

@@ -1,5 +1,5 @@
 from collections import defaultdict
-
+from src.csp.ac3 import forward_check
 
 class UGraph:
     """Constructs an undirected unweighted graph."""
@@ -9,6 +9,8 @@ class UGraph:
         self.vertices = list()
         self.coloring = dict()
         self.possible_colors = dict()
+
+        self.pruned = dict()
 
     def add_edge(self, src: int, dest: int) -> None:
         """Add edges between source and destination vertices.
@@ -56,6 +58,9 @@ class UGraph:
         :type v_id: int
         """
         if v_id in self.coloring.keys():
+            for color in self.pruned[v_id]:
+                self.possible_colors[v_id].append(color)
+            self.pruned[v_id] = []
             del self.coloring[v_id]
 
     def assign_possible_color_range(self, num_of_colors: int) -> None:
@@ -67,3 +72,4 @@ class UGraph:
         for v_id in self.vertices:
             if v_id not in self.possible_colors.keys():
                 self.possible_colors[v_id] = list(range(0, num_of_colors))
+        self.pruned = {v: list() for v in self.vertices}

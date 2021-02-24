@@ -38,7 +38,7 @@ def runner(filename: str) -> None:
 	## -- print solution -- ##
 	    
 	print(assignment)
-
+	# idea is to use AC3 as preprocessor but use forward checking in other places
 
 if __name__ == "__main__":
 
@@ -50,3 +50,7 @@ if __name__ == "__main__":
         print("Invalid filename. Using default filename in this directory instead.")
         input_file = "colors.txt"
         runner(filename=input_file)
+
+
+
+# https://github.com/stressGC/Python-AC3-Backtracking-CSP-Sudoku-Solver/blob/master/sudoku.py
