@@ -33,7 +33,6 @@ def runner(filename: str) -> None:
 	csp = CSP(vertices=graph.vertices)
 
 	# initialize possible color values
-
 	csp.initialize_color_range(num_of_colors=num_of_colors, vertices=graph.vertices)
 
 	# generate constraints for each vertex
@@ -45,8 +44,9 @@ def runner(filename: str) -> None:
 	assignment = backtrack_search(csp=csp, graph = graph)
 
 	## -- print solution -- ##
-	    
-	print(assignment)
+	print("Solution found. Color assignment is as follows:\n")
+	for vertex, color in assignment.items():
+		print("Vertex {} -> Color {}\n".format(vertex, color))
 
 if __name__ == "__main__":
 
