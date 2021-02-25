@@ -1,4 +1,5 @@
 from src.constructor.grapher import UGraph
+from src.constructor.csp import CSP
 from src.constructor.input_reader import parse_edges, parse_number_of_colors
 from src.csp.backtrack import backtrack_search
 
@@ -25,20 +26,27 @@ def runner(filename: str) -> None:
 	for edge_info in edges:
 	    vertex_from = edge_info[0]
 	    vertex_to = edge_info[1]
-	    graph.add_edge(vertex_from, vertex_to) # add perhaps a comparison so that two same edges don't exist
+	    graph.add_edge(vertex_from, vertex_to)
 
-	## -- initialize color range values -- ##
+	## -- initialize CSP problem -- ##
 
-	graph.assign_possible_color_range(num_of_colors = num_of_colors)
+	csp = CSP(vertices=graph.vertices)
+
+	# initialize possible color values
+
+	csp.initialize_color_range(num_of_colors=num_of_colors, vertices=graph.vertices)
+
+	# generate constraints for each vertex
+	for vertex in graph.vertices:
+		csp.generate_vertex_constraints(v_id=vertex, graph=graph)
 
 	## -- start backtrack searching -- ##
 
-	assignment = backtrack_search(graph = graph, num_of_colors = num_of_colors)
+	assignment = backtrack_search(csp=csp, graph = graph)
 
 	## -- print solution -- ##
 	    
 	print(assignment)
-	# idea is to use AC3 as preprocessor but use forward checking in other places
 
 if __name__ == "__main__":
 
@@ -48,9 +56,5 @@ if __name__ == "__main__":
 
     except FileNotFoundError:
         print("Invalid filename. Using default filename in this directory instead.")
-        input_file = "colors.txt"
+        input_file = "inputs/colors.txt"
         runner(filename=input_file)
-
-
-
-# https://github.com/stressGC/Python-AC3-Backtracking-CSP-Sudoku-Solver/blob/master/sudoku.py
