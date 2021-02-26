@@ -44,9 +44,12 @@ def runner(filename: str) -> None:
 	assignment = backtrack_search(csp=csp, graph = graph)
 
 	## -- print solution -- ##
-	print("Solution found. Color assignment is as follows:\n")
-	for vertex, color in assignment.items():
-		print("Vertex {} -> Color {}\n".format(vertex, color))
+	if assignment is not None:
+		print("Solution found. Color assignment is as follows:\n")
+		for vertex, color in assignment.items():
+			print("Vertex {} -> Color {}\n".format(vertex, color))
+	else:
+		print("No solution.")
 
 if __name__ == "__main__":
 
