@@ -22,7 +22,7 @@ The goal of this project is to color a given graph's vertices with a given numbe
 
 To run this code, one argument is taken from the command line: file name.
 
-Example of how to run the program:
+Example of how to run the program (located in folder ``csp_search``):
 ``` sh
     runner.py
 ```
